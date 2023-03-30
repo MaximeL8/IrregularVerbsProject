@@ -10,6 +10,10 @@ export default function App() {
     color == "red" ? setColor("blue") : setColor("red")
   };
 
+  const changeSize = () => {
+    isClicked == false ? setIsClicked(true) : setIsClicked(false)
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => {
