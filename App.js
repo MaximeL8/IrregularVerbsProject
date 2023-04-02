@@ -7,7 +7,7 @@ export default function App() {
   const [isClicked, setIsClicked] = useState(false);
 
   const changeColor = () => {
-    color == "red" ? setColor("blue") : setColor("red")
+    color == "brown" ? setColor("blue") : setColor("brown")
   };
 
   const changeSize = () => {
