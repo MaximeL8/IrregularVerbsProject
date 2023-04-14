@@ -1,8 +1,9 @@
 import { React, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import MaterialIcon, {colorPalette} from 'material-icons-react';
 
 export default function HomeScreen() {
   
@@ -29,9 +30,27 @@ export default function HomeScreen() {
         <View style={styles.TitleContainer}>
             <Text style={[{fontFamily: 'Milky-Coffee'}, styles.TitleText]}>English Irregular Verbs</Text>
         </View>
-        <TouchableOpacity style={styles.ButtonContainer}>
-            <Text style={[{fontFamily: 'Roboto-Bold'}, styles.TitleButton]}>Let's get started!</Text>
-        </TouchableOpacity>
+        <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              borderBottomColor: '#ccc',
+              borderBottomWidth: 1,
+              paddingBottom: 8,
+              marginBottom: 25,
+          }}>
+          <MaterialIcon
+            name = "alternate-email"
+            size = {28}
+            color = "#666"
+            style = {{marginRight: 5}}
+          />
+          <TextInput
+            placeholder='Email ID'
+            style = {{flex: 1, paddingVertical: 0}}
+          />
+          </View>
+        </View>
     </View>
   )
 }
