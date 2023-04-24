@@ -1,8 +1,11 @@
 import { StyleSheet } from "react-native";
 
+const backgroundcolor = "darkblue"
+const secondarycolor = "#FF5C2C"
+
 const styles = StyleSheet.create({
     Container: {
-        backgroundColor: 'darkblue',
+        backgroundColor: backgroundcolor,
         height: '100%',
         width: '100%',
         display: "flex",
@@ -19,17 +22,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     TitleText: {
-        color: '#FF5C2C',
+        color: secondarycolor,
         fontSize: 45,
         textAlign: 'center'
     },
     ButtonLogIn: {
-        backgroundColor: "#FF5C2C",
+        backgroundColor: secondarycolor,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
         borderRadius: 20,
-        borderColor: "#FF5C2C",
+        borderColor: secondarycolor,
         height: 50,
         
     },
