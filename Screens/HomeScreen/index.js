@@ -1,5 +1,5 @@
 import { React, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -25,13 +25,35 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={styles.Container}>
+      <View style={styles.Container}>
         <View style={styles.TitleContainer}>
             <Text style={[{fontFamily: 'Milky-Coffee'}, styles.TitleText]}>English Irregular Verbs</Text>
         </View>
-        <TouchableOpacity style={styles.ButtonContainer}>
-            <Text style={[{fontFamily: 'Roboto-Bold'}, styles.TitleButton]}>Let's get started!</Text>
-        </TouchableOpacity>
-    </View>
+        <View style={styles.LogInContainer}>
+          <Text style={styles.TitleLogIn}>Welcome!</Text>
+          <View style={styles.LogInInputContainer}>
+              <TextInput
+                style={styles.LogInInput}
+                placeholder='Username'
+              />
+              <TextInput
+                style={styles.LogInInput}
+                placeholder='Password'
+              />
+              <View style={styles.LogInButton}>
+                <TouchableOpacity style={styles.ButtonLogIn}>
+                  <Text style={{color: 'white', fontWeight: 'bold'}}>Login</Text>
+                </TouchableOpacity>
+                <View style={styles.SignUpView}>
+                  <Text style={{color: '#D5D4D5'}}>Don't have an account?</Text>
+                  <TouchableOpacity>
+                    <Text style={{color: '#FF5C2C', fontWeight: 'bold'}}> Sign Up</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          
+        </View>
+      </View>
   )
 }
