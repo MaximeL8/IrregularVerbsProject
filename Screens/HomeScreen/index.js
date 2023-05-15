@@ -3,12 +3,12 @@ import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-//import SQLite from 'react-native-sqlite-storage';
+import { useNavigation } from '@react-navigation/native';
+import PlayingScreen from '../PlayingScreen';
 
 export default function HomeScreen() {
-  
-  //const db = SQLite.openDatabase('irregularVerbsAppDB.db');
-  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
+  const [setLoadPlayingScreen, LoadPlayingScreen] = useState(false);
 
   const [fontsLoaded] = useFonts({
     'Milky-Coffee': require('../../assets/fonts/Milky-Coffee.ttf'),
@@ -28,14 +28,9 @@ export default function HomeScreen() {
     SplashScreen.hideAsync();
   }
 
-  if(isLoading){
-    return(
-      <View style={styles.Container}>
-        <Text style={styles.TitleText}>HELLO GUYS</Text>
-        <TouchableOpacity style={styles.ButtonLogIn} onPress={() => setIsLoading(false)}>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>Login</Text>
-        </TouchableOpacity>
-      </View>
+  if(LoadPlayingScreen) {
+    return (
+      <PlayingScreen></PlayingScreen>
     )
   }
 
@@ -61,7 +56,7 @@ export default function HomeScreen() {
                 </TouchableOpacity>
                 <View style={styles.SignUpView}>
                   <Text style={{color: '#D5D4D5'}}>Don't have an account?</Text>
-                  <TouchableOpacity onPress={() => setIsLoading(true)}>
+                  <TouchableOpacity onPress={() => setLoadPlayingScreen(true)}>
                     <Text style={{color: '#FF5C2C', fontWeight: 'bold'}}> Sign Up</Text>
                   </TouchableOpacity>
                 </View>
