@@ -26,16 +26,7 @@ const styles = StyleSheet.create({
         fontSize: 45,
         textAlign: 'center'
     },
-    ButtonLogIn: {
-        backgroundColor: secondarycolor,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        borderRadius: 20,
-        borderColor: secondarycolor,
-        height: 50,
-        
-    },
+    
     LogInContainer: {
         display: "flex",
         flexDirection: "column",
@@ -47,12 +38,7 @@ const styles = StyleSheet.create({
         display: "flex",
         gap: 10,
     },
-    LogInInput: {
-        height: 60,
-        backgroundColor: "lightgrey",
-        borderRadius: 20,
-        paddingLeft: 20,
-    },
+    
     TitleLogIn: {
         paddingLeft: 10,
         fontWeight: 'bold',
@@ -62,12 +48,7 @@ const styles = StyleSheet.create({
     LogInButton: {
         paddingTop: 20
     },
-    SignUpView: {
-        paddingTop: 10,
-        display: "flex",
-        flexDirection: 'row',
-        justifyContent: 'center',
-    },
+    
 })
 
 export { styles }

@@ -3,22 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './Screens/HomeScreen';
 import PlayingScreen from './Screens/PlayingScreen';
 
-const Stack = createStackNavigator();
-
-function App() {
+export default function App() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="PlayingScreen" component={PlayingScreen} />
-    </Stack.Navigator>
+    <HomeScreen/>
   )
 }
-
-export default () => {
-  return (
-    <NavigationContainer>
-      <App/>
-    </NavigationContainer>
-  )
-}
-

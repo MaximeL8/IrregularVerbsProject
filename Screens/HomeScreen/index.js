@@ -1,14 +1,17 @@
 import { React, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useNavigation } from '@react-navigation/native';
 import PlayingScreen from '../PlayingScreen';
+import CustomInput from '../../Components/CustomInput';
+import CustomButton from '../../Components/CustomButton';
+import SignUpLine from '../../Components/SignUpLine';
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
-  const [setLoadPlayingScreen, LoadPlayingScreen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const [fontsLoaded] = useFonts({
     'Milky-Coffee': require('../../assets/fonts/Milky-Coffee.ttf'),
@@ -28,41 +31,30 @@ export default function HomeScreen() {
     SplashScreen.hideAsync();
   }
 
-  if(LoadPlayingScreen) {
-    return (
-      <PlayingScreen></PlayingScreen>
-    )
+  const onPressSignUp = () => {
+    console.warn('Signing up!');
+  }
+
+  const onPressLogIn = () => {
+    console.warn('Loging in!');
   }
 
   return (
-      <View style={styles.Container}>
-        <View style={styles.TitleContainer}>
-            <Text style={[{fontFamily: 'Milky-Coffee'}, styles.TitleText]}>English Irregular Verbs</Text>
-        </View>
-        <View style={styles.LogInContainer}>
-          <Text style={styles.TitleLogIn}>Welcome!</Text>
-          <View style={styles.LogInInputContainer}>
-              <TextInput
-                style={styles.LogInInput}
-                placeholder='Username'
-              />
-              <TextInput
-                style={styles.LogInInput}
-                placeholder='Password'
-              />
-              <View style={styles.LogInButton}>
-                <TouchableOpacity style={styles.ButtonLogIn}>
-                  <Text style={{color: 'white', fontWeight: 'bold'}}>Login</Text>
-                </TouchableOpacity>
-                <View style={styles.SignUpView}>
-                  <Text style={{color: '#D5D4D5'}}>Don't have an account?</Text>
-                  <TouchableOpacity onPress={() => setLoadPlayingScreen(true)}>
-                    <Text style={{color: '#FF5C2C', fontWeight: 'bold'}}> Sign Up</Text>
-                  </TouchableOpacity>
+        <View style={styles.Container}>
+          <View style={styles.TitleContainer}>
+              <Text style={[{fontFamily: 'Milky-Coffee'}, styles.TitleText]}>English Irregular Verbs</Text>
+          </View>
+          <View style={styles.LogInContainer}>
+            <Text style={styles.TitleLogIn}>Welcome!</Text>
+            <View style={styles.LogInInputContainer}>
+                <CustomInput placeholder='Username' value={username} setValue={setUsername} />
+                <CustomInput placeholder='Password' value={password} setValue={setPassword} secureTextEntry={true} />
+                <View style={styles.LogInButton}>
+                  <CustomButton textValue='Login' onPress={onPressLogIn}/>
+                  <SignUpLine onPress={onPressSignUp}/>
                 </View>
               </View>
-            </View>
+          </View>
         </View>
-      </View>
   )
 }
