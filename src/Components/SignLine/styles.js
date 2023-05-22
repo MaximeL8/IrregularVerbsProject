@@ -5,10 +5,11 @@ const secondarycolor = "#FF5C2C"
 
 const styles = StyleSheet.create({
     SignUpView: {
-        paddingTop: 10,
+        paddingTop: 50,
         display: "flex",
         flexDirection: 'row',
         justifyContent: 'center',
+       
     },
 })
 

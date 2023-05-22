@@ -3,19 +3,23 @@ import { View, Text, ScrollView } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useNavigation } from '@react-navigation/native';
 import PlayingScreen from '../PlayingScreen';
 import CustomInput from '../../Components/CustomInput';
 import CustomButton from '../../Components/CustomButton';
-import SignUpLine from '../../Components/SignUpLine';
+import SignLine from '../../Components/SignLine';
+import { useNavigation } from '@react-navigation/native';
 
-export default function HomeScreen() {
+export default function SignUpScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const navigation = useNavigation();
+
 
   const [fontsLoaded] = useFonts({
-    'Milky-Coffee': require('../../assets/fonts/Milky-Coffee.ttf'),
-    'Roboto-Bold': require('../../assets/fonts/Roboto-Bold.ttf'),
+    'Milky-Coffee': require('../../../assets/fonts/Milky-Coffee.ttf'),
+    'Roboto-Bold': require('../../../assets/fonts/Roboto-Bold.ttf'),
   });
   
   useEffect(() => {
@@ -32,26 +36,25 @@ export default function HomeScreen() {
   }
 
   const onPressSignUp = () => {
-    console.warn('Signing up!');
+    navigation.navigate('ConfirmSignUp');
   }
 
   const onPressLogIn = () => {
-    console.warn('Loging in!');
+    navigation.navigate('SignIn');
   }
 
   return (
         <View style={styles.Container}>
-          <View style={styles.TitleContainer}>
-              <Text style={[{fontFamily: 'Milky-Coffee'}, styles.TitleText]}>English Irregular Verbs</Text>
-          </View>
           <View style={styles.LogInContainer}>
-            <Text style={styles.TitleLogIn}>Welcome!</Text>
+            <Text style={styles.TitleLogIn}>Create an account!</Text>
             <View style={styles.LogInInputContainer}>
+                <CustomInput placeholder='Email' value={email} setValue={setEmail} />
                 <CustomInput placeholder='Username' value={username} setValue={setUsername} />
                 <CustomInput placeholder='Password' value={password} setValue={setPassword} secureTextEntry={true} />
+                <CustomInput placeholder='Repeat Password' value={repeatPassword} setValue={setRepeatPassword} secureTextEntry={true}/>
                 <View style={styles.LogInButton}>
-                  <CustomButton textValue='Login' onPress={onPressLogIn}/>
-                  <SignUpLine onPress={onPressSignUp}/>
+                  <CustomButton textValue='Sign up' onPress={onPressSignUp}/>
+                  <SignLine text='Log in' slogan="Already have an account?" onPress={onPressLogIn}/>
                 </View>
               </View>
           </View>
