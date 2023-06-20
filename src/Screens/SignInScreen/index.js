@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, Alert, ToastAndroid } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,7 +8,6 @@ import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
-import { Alert } from 'react-native';
 
 export default function SignInScreen() {
   const [username, setUsername] = useState('');
@@ -49,7 +48,7 @@ export default function SignInScreen() {
     setLoading(true);
     try {
       await Auth.signIn(username, password);
-      console.warn('Connected Successfully!')
+      ToastAndroid.show('Connected Successfully!', 2000);
     } catch (e) {
       Alert.alert("Cannot connect : ", e.message);
       setPassword('');

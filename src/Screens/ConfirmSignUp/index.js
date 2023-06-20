@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, Alert, ToastAndroid } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -10,7 +10,6 @@ import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
-import { Alert } from 'react-native';
 
 export default function ConfirmSignUp() {
   const navigation = useNavigation();
@@ -44,7 +43,7 @@ export default function ConfirmSignUp() {
     setLoading(true);
     try {
       await Auth.confirmSignUp(username, code);
-      Alert.alert('Registered successfully! You can now log in!');
+      ToastAndroid.show('Registered successfully!', 2000);
       navigation.navigate('SignIn');
     } catch (e) {
       Alert.alert('Cannot confirm : ', e.message);
@@ -56,7 +55,7 @@ export default function ConfirmSignUp() {
   const resendCode = async () => {
     try {
       await Auth.resendSignUp(username);
-      Alert.alert('Resent successfully!');
+      ToastAndroid.show('Resent successfully!', 2000);
     } catch (e) {
       Alert.alert('Cannot resend : ', e.message);
     }

@@ -1,4 +1,4 @@
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, ToastAndroid } from 'react-native';
 import CustomButton from '../../Components/CustomButton';
 import { useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
@@ -12,7 +12,7 @@ export default function Home() {
     const signOut = async () => {
         try {
             await Auth.signOut();
-            Alert.alert('Sign out successfully');
+            ToastAndroid.show('Sign out successfully', 2000);
         } catch (e) {
             Alert.alert('Cannot sign out : ', e.message);
         }

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, Alert, ToastAndroid } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,7 +8,6 @@ import CustomInput from '../../Components/CustomInput';
 import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useNavigation } from '@react-navigation/native';
-import { Alert } from 'react-native';
 import { Auth } from 'aws-amplify';
 
 export default function SignUpScreen() {
@@ -50,7 +49,7 @@ export default function SignUpScreen() {
         password,
         attributes: {email, name, preferred_username: username},
       });
-      Alert.alert('Registered Successfully! You need to confirm your account now.');
+      ToastAndroid.show('Registered Successfully! You need to confirm your account now.', 5000);
       navigation.navigate('ConfirmSignUp', { username: username });
     } catch (e) {
       Alert.alert('Cannot register : ', e.message);

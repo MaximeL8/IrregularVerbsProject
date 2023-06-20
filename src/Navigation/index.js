@@ -23,8 +23,6 @@ const Navigation = () => {
         <ActivityIndicator />
       </View>
     );
-  } else {
-    console.warn('user:', user);
   }
 
   return (

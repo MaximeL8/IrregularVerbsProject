@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { View, Text, ScrollView, Alert } from 'react-native';
+import { View, Text, Alert, ToastAndroid } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -44,7 +44,7 @@ export default function NewPassword() {
     setLoading(true);
     try {
       await Auth.forgotPasswordSubmit(username, code, newPassword);
-      Alert.alert('Your password has been updated, you can now log in.')
+      ToastAndroid.show('Your password has been updated, you can now log in.', 2000);
       navigation.navigate('SignIn');
     } catch (e) {
       Alert.alert('Cannot confirm : ', e.message);

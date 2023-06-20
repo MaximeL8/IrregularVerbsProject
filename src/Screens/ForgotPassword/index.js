@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -9,7 +9,6 @@ import CustomInput from '../../Components/CustomInput';
 import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useRoute } from '@react-navigation/native';
-import { Alert } from 'react-native';
 import { Auth } from 'aws-amplify';
 
 export default function ForgotPassword() {
