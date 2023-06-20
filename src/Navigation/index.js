@@ -31,12 +31,14 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
+          <>
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Playing" component={PlayingScreen} />
+          </>
         ) : (
           <>
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="Playing" component={PlayingScreen} />
             <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="NewPassword" component={NewPassword} />
