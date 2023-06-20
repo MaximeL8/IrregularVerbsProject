@@ -8,10 +8,16 @@ import PlayingScreen from '../PlayingScreen';
 import CustomInput from '../../Components/CustomInput';
 import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
+import { useRoute } from '@react-navigation/native';
+import { Auth } from 'aws-amplify';
+import { Alert } from 'react-native';
 
 export default function ConfirmSignUp() {
-  const [code, setCode] = useState('');
   const navigation = useNavigation();
+  const route = useRoute();
+  const [username, setUsername] = useState(route?.params?.username);
+  const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const [fontsLoaded] = useFonts({
     'Milky-Coffee': require('../../../assets/fonts/Milky-Coffee.ttf'),
@@ -31,8 +37,29 @@ export default function ConfirmSignUp() {
     SplashScreen.hideAsync();
   }
 
-  const confirmSignUp = () => {
-    navigation.navigate('Home')
+  const confirmSignUp = async () => {
+    if(loading){
+      return;
+    }
+    setLoading(true);
+    try {
+      await Auth.confirmSignUp(username, code);
+      Alert.alert('Registered successfully! You can now log in!');
+      navigation.navigate('SignIn');
+    } catch (e) {
+      Alert.alert('Cannot confirm : ', e.message);
+      setCode('');
+    }
+    setLoading(false);
+  }
+
+  const resendCode = async () => {
+    try {
+      await Auth.resendSignUp(username);
+      Alert.alert('Resent successfully!');
+    } catch (e) {
+      Alert.alert('Cannot resend : ', e.message);
+    }
   }
 
   const login = () => {
@@ -40,19 +67,19 @@ export default function ConfirmSignUp() {
   }
 
   return (
-        <View style={styles.Container}>
-          <View style={styles.LogInContainer}>
-            <Text style={styles.TitleLogIn}>Confirm Sign Up</Text>
-            <View style={styles.LogInInputContainer}>
-                <CustomInput placeholder='Code' value={code} setValue={setCode} />
-                
-                <View style={styles.LogInButton}>
-                  <CustomButton textValue='Confirm' onPress={confirmSignUp}/>
-                  <SignLine text='Resend code' slogan="Haven't received the code yet ?" />
-                  <SignLine text='Log in' slogan="Already have an account?" onPress={login}/>
-                </View>
-              </View>
+    <View style={styles.Container}>
+      <View style={styles.LogInContainer}>
+        <Text style={styles.TitleLogIn}>Confirm Sign Up</Text>
+        <View style={styles.LogInInputContainer}>
+          <CustomInput placeholder='Username' value={username} setValue={setUsername} />
+          <CustomInput placeholder='Code' value={code} setValue={setCode} />
+          <View style={styles.LogInButton}>
+            <CustomButton textValue={loading ? 'Loading ...' : 'Confirm'} onPress={confirmSignUp}/>
+            <SignLine text='Resend code' slogan="Haven't received the code yet ?" onPress={resendCode}/>
+            <SignLine text='Log in' slogan="Already have an account?" onPress={login}/>
           </View>
         </View>
+      </View>
+    </View>
   )
 }

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import { styles } from './styles';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,11 +8,16 @@ import PlayingScreen from '../PlayingScreen';
 import CustomInput from '../../Components/CustomInput';
 import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
+import { useRoute } from '@react-navigation/native';
+import { Auth } from 'aws-amplify';
 
 export default function NewPassword() {
+  const route = useRoute();
   const [code, setCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [username, setUsername] = useState(route?.params?.username);
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
 
   const [fontsLoaded] = useFonts({
     'Milky-Coffee': require('../../../assets/fonts/Milky-Coffee.ttf'),
@@ -32,8 +37,21 @@ export default function NewPassword() {
     SplashScreen.hideAsync();
   }
 
-  const confirmNewPassword = () => {
-    navigation.navigate('Home');
+  const confirmNewPassword = async () => {
+    if(loading){
+      return;
+    }
+    setLoading(true);
+    try {
+      await Auth.forgotPasswordSubmit(username, code, newPassword);
+      Alert.alert('Your password has been updated, you can now log in.')
+      navigation.navigate('SignIn');
+    } catch (e) {
+      Alert.alert('Cannot confirm : ', e.message);
+      setCode('');
+      setNewPassword('');
+    }
+    setLoading(false);
   }
 
   const signIn = () => {
@@ -45,13 +63,14 @@ export default function NewPassword() {
           <View style={styles.LogInContainer}>
             <Text style={styles.TitleLogIn}>Reset your password</Text>
             <View style={styles.LogInInputContainer}>
-                <CustomInput placeholder='Code' value={code} setValue={setCode} />
-                <CustomInput placeholder='New Password' value={newPassword} setValue={setNewPassword} />
-                <View style={styles.LogInButton}>
-                  <CustomButton textValue='Submit' onPress={confirmNewPassword}/>
-                  <SignLine text='Log in' slogan="Already have an account?" onPress={signIn}/>
-                </View>
+              <CustomInput placeholder='Username' value={username} setValue={setUsername} />
+              <CustomInput placeholder='Code' value={code} setValue={setCode} />
+              <CustomInput placeholder='New Password' value={newPassword} setValue={setNewPassword} />
+              <View style={styles.LogInButton}>
+                <CustomButton textValue={loading ? 'Loading ...' : 'Submit'} onPress={confirmNewPassword}/>
+                <SignLine text='Log in' slogan="Already have an account?" onPress={signIn}/>
               </View>
+            </View>
           </View>
         </View>
   )

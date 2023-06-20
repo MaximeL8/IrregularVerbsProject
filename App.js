@@ -7,9 +7,20 @@ import ConfirmSignUp from './src/Screens/ConfirmSignUp';
 import ForgotPassword from './src/Screens/ForgotPassword';
 import NewPassword from './src/Screens/NewPassword';
 import Navigation from './src/Navigation';
+import { Amplify } from '@aws-amplify/core';
+import { Auth } from 'aws-amplify';
+import config from './src/aws-exports';
+import { AuthProvider } from './src/Context/AuthContext';
 
-export default function App() {
+Amplify.configure(config);
+
+const App = () => {
+  // Auth.signOut();
   return (
-    <Navigation/>
+    <AuthProvider>
+      <Navigation />
+    </AuthProvider>
   )
 }
+
+export default App;

@@ -8,11 +8,15 @@ import PlayingScreen from '../PlayingScreen';
 import CustomInput from '../../Components/CustomInput';
 import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
-
+import { useRoute } from '@react-navigation/native';
+import { Alert } from 'react-native';
+import { Auth } from 'aws-amplify';
 
 export default function ForgotPassword() {
-  const [username, setUsername] = useState('');
+  const route = useRoute();
+  const [username, setUsername] = useState(route?.params?.username);
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
 
   const [fontsLoaded] = useFonts({
     'Milky-Coffee': require('../../../assets/fonts/Milky-Coffee.ttf'),
@@ -32,8 +36,18 @@ export default function ForgotPassword() {
     SplashScreen.hideAsync();
   }
 
-  const confirmUsername = () => {
-    navigation.navigate('NewPassword');
+  const confirmUsername = async () => {
+    if(loading){
+      return;
+    }
+    setLoading(true);
+    try {
+      await Auth.forgotPassword(username);
+      navigation.navigate('NewPassword', {username: username});
+    } catch (e) {
+      Alert.alert('Cannot send : ', e.message);
+    }
+    setLoading(false);
   }
 
   const logIn = () => {
@@ -47,7 +61,7 @@ export default function ForgotPassword() {
             <View style={styles.LogInInputContainer}>
                 <CustomInput placeholder='Username' value={username} setValue={setUsername} />
                 <View style={styles.LogInButton}>
-                  <CustomButton textValue='Send' onPress={confirmUsername}/>
+                  <CustomButton textValue={loading ? 'Loading ...' : 'Send'} onPress={confirmUsername}/>
                   <SignLine text='Log in' slogan="Already have an account?" onPress={logIn} />
                 </View>
               </View>

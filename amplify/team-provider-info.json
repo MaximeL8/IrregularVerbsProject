@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-irregularverbs-staging-124617-authRole",
+      "UnauthRoleArn": "arn:aws:iam::855552578797:role/amplify-irregularverbs-staging-124617-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::855552578797:role/amplify-irregularverbs-staging-124617-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-irregularverbs-staging-124617-deployment",
+      "UnauthRoleName": "amplify-irregularverbs-staging-124617-unauthRole",
+      "StackName": "amplify-irregularverbs-staging-124617",
+      "StackId": "arn:aws:cloudformation:eu-north-1:855552578797:stack/amplify-irregularverbs-staging-124617/49113f00-0e9f-11ee-a612-0eb699929ef0",
+      "AmplifyAppId": "dyr7xnpsex0et"
+    },
+    "categories": {
+      "auth": {
+        "IrregularVerbs": {}
+      }
+    }
+  }
+}

@@ -7,11 +7,14 @@ import CustomInput from '../../Components/CustomInput';
 import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useNavigation } from '@react-navigation/native';
+import { Auth } from 'aws-amplify';
+import { Alert } from 'react-native';
 
 export default function SignInScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
 
   const [fontsLoaded] = useFonts({
     'Milky-Coffee': require('../../../assets/fonts/Milky-Coffee.ttf'),
@@ -32,14 +35,26 @@ export default function SignInScreen() {
   }
 
   const onPressChangePassword = () => {
-    navigation.navigate('ForgotPassword')
+    navigation.navigate('ForgotPassword', {username: username})
   }
 
   const onPressSignUp = () => {
     navigation.navigate('SignUp')
   }
 
-  const onPressLogIn = () => {
+  const onPressLogIn = async () => {
+    if(loading){
+      return;
+    }
+    setLoading(true);
+    try {
+      await Auth.signIn(username, password);
+      console.warn('Connected Successfully!')
+    } catch (e) {
+      Alert.alert("Cannot connect : ", e.message);
+      setPassword('');
+    }
+    setLoading(false);
   }
 
   return (
@@ -53,9 +68,9 @@ export default function SignInScreen() {
                 <CustomInput placeholder='Username' value={username} setValue={setUsername} />
                 <CustomInput placeholder='Password' value={password} setValue={setPassword} secureTextEntry={true} />
                 <View style={styles.LogInButton}>
-                  <CustomButton textValue='Login' onPress={onPressLogIn}/>
-                  <SignLine text='Change Password' slogan="Forgot the password ?" onPress={onPressChangePassword}/>
-                  <SignLine text='Sign up' slogan="Don't have an account ?" onPress={onPressSignUp}/>
+                  <CustomButton textValue={loading ? 'Loading ...' : 'Login'} onPress={onPressLogIn}/>
+                  <SignLine text='Change Password' slogan="Forgot the password ?" onPress={onPressChangePassword} />
+                  <SignLine text='Sign up' slogan="Don't have an account ?" onPress={onPressSignUp} />
                 </View>
               </View>
           </View>
