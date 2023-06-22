@@ -11,6 +11,8 @@ import { Amplify } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 import config from './src/aws-exports';
 import { AuthProvider } from './src/Context/AuthContext';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Colors } from './assets/colors';
 
 Amplify.configure(config);
 
@@ -18,7 +20,10 @@ const App = () => {
   // Auth.signOut();
   return (
     <AuthProvider>
-      <Navigation />
+      
+        <Navigation />
+      
+      
     </AuthProvider>
   )
 }

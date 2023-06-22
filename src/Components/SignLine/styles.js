@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
-
-const backgroundcolor = "darkblue"
-const secondarycolor = "#FF5C2C"
+import { Colors } from "../../../assets/colors";
 
 const styles = StyleSheet.create({
     SignUpView: {

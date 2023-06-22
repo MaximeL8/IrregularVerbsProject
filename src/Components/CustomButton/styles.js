@@ -1,16 +1,14 @@
 import { StyleSheet } from "react-native";
-
-const backgroundcolor = "darkblue"
-const secondarycolor = "#FF5C2C"
+import { Colors } from "../../../assets/colors";
 
 const styles = StyleSheet.create({
     ButtonLogIn: {
-        backgroundColor: secondarycolor,
+        backgroundColor: Colors.secondarycolor,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
         borderRadius: 20,
-        borderColor: secondarycolor,
+        borderColor: Colors.secondarycolor,
         height: 50,
         
     },

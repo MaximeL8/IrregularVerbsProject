@@ -10,6 +10,8 @@ import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Colors } from '../../../assets/colors';
 
 export default function ForgotPassword() {
   const route = useRoute();
@@ -54,17 +56,24 @@ export default function ForgotPassword() {
   }
 
   return (
+      <LinearGradient
+        colors={[Colors.gradient.bottomLeft, Colors.gradient.topRight]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        style={{ flex: 1 }}
+      >
         <View style={styles.Container}>
           <View style={styles.LogInContainer}>
             <Text style={styles.TitleLogIn}>Reset your password</Text>
             <View style={styles.LogInInputContainer}>
-                <CustomInput placeholder='Username' value={username} setValue={setUsername} />
-                <View style={styles.LogInButton}>
-                  <CustomButton textValue={loading ? 'Loading ...' : 'Send'} onPress={confirmUsername}/>
-                  <SignLine text='Log in' slogan="Already have an account?" onPress={logIn} />
-                </View>
+              <CustomInput placeholder='Username' value={username} setValue={setUsername} />
+              <View style={styles.LogInButton}>
+                <CustomButton textValue={loading ? 'Loading ...' : 'Send'} onPress={confirmUsername}/>
+                <SignLine text='Log in' slogan="Already have an account?" onPress={logIn} />
               </View>
+            </View>
           </View>
         </View>
+      </LinearGradient>
   )
 }

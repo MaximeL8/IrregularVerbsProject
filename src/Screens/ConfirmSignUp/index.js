@@ -10,6 +10,8 @@ import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
+import { Colors } from '../../../assets/colors';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ConfirmSignUp() {
   const navigation = useNavigation();
@@ -66,19 +68,26 @@ export default function ConfirmSignUp() {
   }
 
   return (
-    <View style={styles.Container}>
-      <View style={styles.LogInContainer}>
-        <Text style={styles.TitleLogIn}>Confirm Sign Up</Text>
-        <View style={styles.LogInInputContainer}>
-          <CustomInput placeholder='Username' value={username} setValue={setUsername} />
-          <CustomInput placeholder='Code' value={code} setValue={setCode} />
-          <View style={styles.LogInButton}>
-            <CustomButton textValue={loading ? 'Loading ...' : 'Confirm'} onPress={confirmSignUp}/>
-            <SignLine text='Resend code' slogan="Haven't received the code yet ?" onPress={resendCode}/>
-            <SignLine text='Log in' slogan="Already have an account?" onPress={login}/>
+    <LinearGradient
+        colors={[Colors.gradient.bottomLeft, Colors.gradient.topRight]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        style={{ flex: 1 }}
+      >
+      <View style={styles.Container}>
+        <View style={styles.LogInContainer}>
+          <Text style={styles.TitleLogIn}>Confirm Sign Up</Text>
+          <View style={styles.LogInInputContainer}>
+            <CustomInput placeholder='Username' value={username} setValue={setUsername} />
+            <CustomInput placeholder='Code' value={code} setValue={setCode} />
+            <View style={styles.LogInButton}>
+              <CustomButton textValue={loading ? 'Loading ...' : 'Confirm'} onPress={confirmSignUp}/>
+              <SignLine text='Resend code' slogan="Haven't received the code yet ?" onPress={resendCode}/>
+              <SignLine text='Log in' slogan="Already have an account?" onPress={login}/>
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   )
 }

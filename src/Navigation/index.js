@@ -11,6 +11,8 @@ import NewPassword from '../Screens/NewPassword';
 import Home from '../Screens/Home';
 import { ActivityIndicator } from 'react-native';
 import { AuthContext } from '../Context/AuthContext';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Colors } from '../../assets/colors';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,18 +31,28 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
+          //<Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="Playing" component={PlayingScreen} />
+          /*
           <>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Playing" component={PlayingScreen} />
           </>
+          */
         ) : (
+          <Stack.Screen name="Playing" component={PlayingScreen} />
+          //<Stack.Screen name="SignIn" component={SignInScreen} />
+          /*
           <>
+            
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen name="ConfirmSignUp" component={ConfirmSignUp} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="NewPassword" component={NewPassword} />
+            
           </>
+          */
         )}
       </Stack.Navigator>
     </NavigationContainer>

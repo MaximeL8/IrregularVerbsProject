@@ -10,6 +10,8 @@ import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useRoute } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Colors } from '../../../assets/colors';
 
 export default function NewPassword() {
   const route = useRoute();
@@ -59,6 +61,12 @@ export default function NewPassword() {
   }
 
   return (
+      <LinearGradient
+        colors={[Colors.gradient.bottomLeft, Colors.gradient.topRight]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        style={{ flex: 1 }}
+      >
         <View style={styles.Container}>
           <View style={styles.LogInContainer}>
             <Text style={styles.TitleLogIn}>Reset your password</Text>
@@ -73,5 +81,6 @@ export default function NewPassword() {
             </View>
           </View>
         </View>
+      </LinearGradient>
   )
 }

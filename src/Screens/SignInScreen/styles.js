@@ -1,11 +1,15 @@
 import { StyleSheet } from "react-native";
-
-const backgroundcolor = "darkblue"
-const secondarycolor = "#FF5C2C"
+import { Colors } from "../../../assets/colors";
 
 const styles = StyleSheet.create({
     Container: {
-        backgroundColor: backgroundcolor,
+        backgroundColor: 'transparent',
+        backgroundGradient: {
+            colors: [Colors.gradient.bottomLeft, Colors.gradient.topRight],
+            start: { x: 0, y: 1 },
+            end: { x: 1, y: 0 },
+            locations: [0, 1],
+        },
         height: '100%',
         width: '100%',
         display: "flex",
@@ -17,12 +21,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         height: '30%',
         width: '80%',
-        backgroundColor: 'darkblue',
+        backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
     },
     TitleText: {
-        color: secondarycolor,
+        color: Colors.secondarycolor,
         fontSize: 45,
         textAlign: 'center'
     },

@@ -8,6 +8,9 @@ import CustomButton from '../../Components/CustomButton';
 import SignLine from '../../Components/SignLine';
 import { useNavigation } from '@react-navigation/native';
 import { Auth } from 'aws-amplify';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Colors } from '../../../assets/colors';
+
 
 export default function SignInScreen() {
   const [username, setUsername] = useState('');
@@ -57,6 +60,12 @@ export default function SignInScreen() {
   }
 
   return (
+      <LinearGradient
+        colors={[Colors.gradient.bottomLeft, Colors.gradient.topRight]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        style={{ flex: 1 }}
+      >
         <View style={styles.Container}>
           <View style={styles.TitleContainer}>
               <Text style={[{fontFamily: 'Milky-Coffee'}, styles.TitleText]}>English Irregular Verbs</Text>
@@ -74,5 +83,6 @@ export default function SignInScreen() {
               </View>
           </View>
         </View>
+      </LinearGradient>
   )
 }
