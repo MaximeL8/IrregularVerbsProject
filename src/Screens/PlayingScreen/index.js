@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, SafeAreaView } from 'react-native';
-import Card from '../../Components/Card';
+import FlipCard from '../../Components/Card';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../../assets/colors';
 
@@ -16,9 +16,9 @@ const PlayingScreen = () => {
             style={{ flex: 1 }}
         >
             <SafeAreaView style={{display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Card englishVerb="To buy" iconVerb="shopping-cart">
+                <FlipCard englishVerb="To Buy" englishVerbPreterit="Bought" englishVerbPastPerfect="Bought" translation="Acheter" iconVerb="shopping-cart">
                     
-                </Card>
+                </FlipCard>
             </SafeAreaView>
         </LinearGradient>
     )

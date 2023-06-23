@@ -1,11 +1,31 @@
-import { View, SafeAreaView, Text, TouchableOpacity, Animated, Easing, StyleSheet } from 'react-native';
-import React, { useState} from 'react';
+import { Animated, View, Text, TouchableOpacity, Easing } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { styles } from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 
-const Card = ({englishVerb, iconVerb}) => {
+const FlipCard = ({englishVerb, iconVerb, englishVerbPastPerfect, englishVerbPreterit, translation}) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const rotationValue = useState(new Animated.Value(0))[0];
+
+    const [fontsLoaded] = useFonts({
+      'Roboto-Bold': require('../../../assets/fonts/Roboto-Bold.ttf'),
+      'Milky-Coffee': require('../../../assets/fonts/Milky-Coffee.ttf'),
+    });
+    
+    useEffect(() => {
+      async function prepare() {
+        await SplashScreen.preventAutoHideAsync();
+      }
+      prepare();
+    }, []);
+  
+    if(!fontsLoaded) {
+      return undefined;
+    } else {
+      SplashScreen.hideAsync();
+    }
 
     const handleFlip = () => {
         Animated.timing(rotationValue, {
@@ -30,11 +50,33 @@ const Card = ({englishVerb, iconVerb}) => {
     const backAnimatedStyle = { transform: [{ rotateY: backInterpolate }] };
   
   return (
-    <View style={styles.cardContainer}>
-      <Icon name={iconVerb} size={40} color="#fff" />
-      <Text style={styles.textStyle}>{englishVerb}</Text>
-    </View>
+    <TouchableOpacity style={{width: '80%', height: '75%'}} onPress={handleFlip}>
+      <Animated.View style={[styles.frontCard, frontAnimatedStyle]}>
+        <Icon name="question" size={30} color="#fff" />
+        <Text style={styles.textStyle}>{englishVerb}</Text>
+        <Icon name="hand-pointer" size={30} color="#fff" />
+      </Animated.View>
+      <Animated.View style={[styles.backCard, backAnimatedStyle]}>
+        <Icon name={iconVerb} size={30} color="#fff" />
+        <View style={styles.verbBox}>
+          <Text style={[{fontFamily: 'Roboto-Bold'}, styles.textList]}>Root:</Text>
+          <Text style={styles.textStyle}>{englishVerb}</Text>
+        </View>
+        <View style={styles.verbBox}>
+          <Text style={[{fontFamily: 'Roboto-Bold'}, styles.textList]}>Preterit:</Text>
+          <Text style={styles.textStyle}>{englishVerbPreterit}</Text>
+        </View>
+        <View style={styles.verbBox}>
+          <Text style={[{fontFamily: 'Roboto-Bold'}, styles.textList]}>Past Perfect:</Text>
+          <Text style={styles.textStyle}>{englishVerbPastPerfect}</Text>
+        </View>
+        <View style={styles.verbBox}>
+          <Text style={[{fontFamily: 'Roboto-Bold'}, styles.textList]}>Translation:</Text>
+          <Text style={styles.textStyle}>{translation}</Text>
+        </View>
+      </Animated.View>
+    </TouchableOpacity>
   )
 };
 
-export default Card;
+export default FlipCard;
