@@ -32,17 +32,16 @@ const Navigation = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
           //<Stack.Screen name="SignIn" component={SignInScreen} />
-          <Stack.Screen name="Playing" component={PlayingScreen} />
-          /*
+          //<Stack.Screen name="Playing" component={PlayingScreen} />
+          
           <>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Playing" component={PlayingScreen} />
+            <Stack.Screen name="Playing" component={PlayingScreen} />
           </>
-          */
+          
         ) : (
-          <Stack.Screen name="Playing" component={PlayingScreen} />
+          //<Stack.Screen name="Playing" component={PlayingScreen} />
           //<Stack.Screen name="SignIn" component={SignInScreen} />
-          /*
+          
           <>
             
             <Stack.Screen name="SignIn" component={SignInScreen} />
@@ -52,7 +51,7 @@ const Navigation = () => {
             <Stack.Screen name="NewPassword" component={NewPassword} />
             
           </>
-          */
+          
         )}
       </Stack.Navigator>
     </NavigationContainer>

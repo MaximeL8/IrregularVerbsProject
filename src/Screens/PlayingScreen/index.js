@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, SafeAreaView, TouchableOpacity, Modal, FlatList, Text, Alert, ToastAndroid } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors } from '../../../assets/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CardStack from '../../Components/CardStack';
 import { styles } from './styles';
 import verbsData from '../../../assets/IrregularVerbs.json';
+import CustomButton from '../../Components/CustomButton';
+import { Auth } from 'aws-amplify';
+import CustomModal from '../../Components/CustomModal';
 
 const PlayingScreen = () => {
   const [cards, setCards] = useState(
@@ -15,12 +18,55 @@ const PlayingScreen = () => {
       preterit: verb.pastSimple,
       pastPerfect: verb.pastParticiple,
       translation: verb.translation,
+      isKnown: false, // Add the 'isKnown' property to track known verbs
     }))
   );
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [showListModal, setShowListModal] = useState(false); // State to control the visibility of the list modal
 
-  const handleCardSwipe = () => {
+  const handleCardSwipe = (isKnown) => {
+    if (isKnown) {
+      setCards((prevCards) =>
+        prevCards.map((card, index) => ({
+          ...card,
+          isKnown: index === currentCardIndex ? true : card.isKnown, // Set the 'isKnown' property for the current card
+        }))
+      );
+    }
+
     setCurrentCardIndex(currentCardIndex + 1);
+  };
+
+  const signOut = async () => {
+    try {
+      await Auth.signOut();
+      ToastAndroid.show('Sign out successfully', 2000);
+    } catch (e) {
+      Alert.alert('Cannot sign out: ', e.message);
+    }
+  };
+
+  const handleListButtonPress = () => {
+    setShowListModal(true); // Show the list modal when the button is pressed
+  };
+
+  const closeModal = () => {
+    setShowListModal(false); // Close the list modal
+  };
+
+  const knownVerbs = cards.slice(0, currentCardIndex).filter((card) => card.isKnown); // Array of known verbs
+  const unknownVerbs = cards.slice(0, currentCardIndex).filter((card) => !card.isKnown); // Array of unknown verbs
+
+
+  const renderListItem = ({ item }) => {
+    return (
+      <View style={styles.listItem}>
+        <Text style={styles.textStyle}>{item.verb} |</Text>
+        <Text style={styles.textStyle}> {item.preterit} |</Text>
+        <Text style={styles.textStyle}> {item.pastPerfect} |</Text>
+        <Text style={styles.textStyle}> {item.translation}</Text>
+      </View>
+    );
   };
 
   return (
@@ -30,7 +76,12 @@ const PlayingScreen = () => {
       end={{ x: 1, y: 0 }}
       style={{ flex: 1 }}
     >
-      <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <SafeAreaView style={styles.safeViewContainer}>
+        <View style={styles.topButtons}>
+          <CustomButton textValue="Sign out" onPress={signOut} />
+          <CustomModal/>
+          <CustomButton textValue="Your list" onPress={handleListButtonPress} />
+        </View>
         {currentCardIndex < cards.length ? (
           <CardStack cards={cards} currentCardIndex={currentCardIndex} onCardSwipe={handleCardSwipe} />
         ) : (
@@ -38,7 +89,35 @@ const PlayingScreen = () => {
             <Icon name="window-close" size={70} color="red" />
           </View>
         )}
-        
+
+        <Modal visible={showListModal} animationType="slide" onRequestClose={closeModal}>
+          <LinearGradient
+            colors={[Colors.gradient.bottomLeft, Colors.gradient.topRight]}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 0 }}
+            style={{ flex: 1 }}
+          >
+          <View style={styles.modalContainer}>
+            <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+              <Icon name="times" size={40} color="black" />
+            </TouchableOpacity>
+            <Text style={styles.listTitle}>Verbs I Know:</Text>
+            <FlatList
+              data={knownVerbs}
+              renderItem={renderListItem}
+              keyExtractor={(item) => item.id.toString()}
+              style={styles.listContainer}
+            />
+            <Text style={styles.listTitle}>Verbs I Don't Know:</Text>
+            <FlatList
+              data={unknownVerbs}
+              renderItem={renderListItem}
+              keyExtractor={(item) => item.id.toString()}
+              style={styles.listContainer}
+            />
+          </View>
+          </LinearGradient>
+        </Modal>
       </SafeAreaView>
     </LinearGradient>
   );

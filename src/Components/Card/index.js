@@ -58,7 +58,10 @@ const FlipCard = ({onFlip, englishVerb, iconVerb, englishVerbPastPerfect, englis
       <Animated.View style={[styles.frontCard, frontAnimatedStyle]}>
         <Icon name="question" size={30} color="#fff" />
         <Text style={styles.textStyle}>{englishVerb}</Text>
-        <Icon name="hand-pointer" size={30} color="#fff" />
+        <View style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', rowGap: 2}}>
+          <Icon name="hand-pointer" size={30} color="#fff" />
+          <Text style={{color: '#fff', opacity: 0.3}}>Click to reveal</Text>
+        </View>
       </Animated.View>
       <Animated.View style={[styles.backCard, backAnimatedStyle]}>
         <Icon name={iconVerb} size={30} color="#fff" />
