@@ -1,14 +1,14 @@
 import { Animated, View, Text, TouchableOpacity, Easing } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { styles } from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-const FlipCard = ({englishVerb, iconVerb, englishVerbPastPerfect, englishVerbPreterit, translation}) => {
+const FlipCard = ({onFlip, englishVerb, iconVerb, englishVerbPastPerfect, englishVerbPreterit, translation}) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const rotationValue = useState(new Animated.Value(0))[0];
-
+ 
     const [fontsLoaded] = useFonts({
       'Roboto-Bold': require('../../../assets/fonts/Roboto-Bold.ttf'),
       'Milky-Coffee': require('../../../assets/fonts/Milky-Coffee.ttf'),
@@ -28,14 +28,18 @@ const FlipCard = ({englishVerb, iconVerb, englishVerbPastPerfect, englishVerbPre
     }
 
     const handleFlip = () => {
-        Animated.timing(rotationValue, {
-        toValue: isFlipped ? 0 : 180,
-        duration: 500,
+      const newValue = !isFlipped;
+      setIsFlipped(newValue)
+      Animated.timing(rotationValue, {
+        toValue: newValue ? 180 : 0,
+        duration: 400,
         easing: Easing.linear,
         useNativeDriver: true,
-        }).start();
-        setIsFlipped(!isFlipped);
+      }).start();
+      onFlip(newValue)
+      console.log('onflip: ', onFlip)
     };
+    
 
     const frontInterpolate = rotationValue.interpolate({
         inputRange: [0, 180],
