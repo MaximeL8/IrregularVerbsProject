@@ -25,7 +25,7 @@ const CustomModal = () => {
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>App Explanation</Text>
             <Text style={styles.modalText}>
-            Welcome to the Irregular Verbs Challenge app!
+            Welcome to the Irregular Verbs app!
             {"\n\n"}
             Test your knowledge of irregular verbs in English with this interactive app. Here's how it works:
             {"\n\n"}
