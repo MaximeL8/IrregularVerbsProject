@@ -73,7 +73,7 @@ export default function NewPassword() {
             <View style={styles.LogInInputContainer}>
               <CustomInput placeholder='Username' value={username} setValue={setUsername} />
               <CustomInput placeholder='Code' value={code} setValue={setCode} />
-              <CustomInput placeholder='New Password' value={newPassword} setValue={setNewPassword} />
+              <CustomInput placeholder='New Password' value={newPassword} setValue={setNewPassword} secureTextEntry />
               <View style={styles.LogInButton}>
                 <CustomButton textValue={loading ? 'Loading ...' : 'Submit'} onPress={confirmNewPassword}/>
                 <SignLine text='Log in' slogan="Already have an account?" onPress={signIn}/>
