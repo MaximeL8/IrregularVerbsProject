@@ -18,18 +18,18 @@ const PlayingScreen = () => {
       preterit: verb.pastSimple,
       pastPerfect: verb.pastParticiple,
       translation: verb.translation,
-      isKnown: false, // Add the 'isKnown' property to track known verbs
+      isKnown: false, 
     }))
   );
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [showListModal, setShowListModal] = useState(false); // State to control the visibility of the list modal
+  const [showListModal, setShowListModal] = useState(false); 
 
   const handleCardSwipe = (isKnown) => {
     if (isKnown) {
       setCards((prevCards) =>
         prevCards.map((card, index) => ({
           ...card,
-          isKnown: index === currentCardIndex ? true : card.isKnown, // Set the 'isKnown' property for the current card
+          isKnown: index === currentCardIndex ? true : card.isKnown, 
         }))
       );
     }
@@ -47,15 +47,15 @@ const PlayingScreen = () => {
   };
 
   const handleListButtonPress = () => {
-    setShowListModal(true); // Show the list modal when the button is pressed
+    setShowListModal(true); 
   };
 
   const closeModal = () => {
-    setShowListModal(false); // Close the list modal
+    setShowListModal(false); 
   };
 
-  const knownVerbs = cards.slice(0, currentCardIndex).filter((card) => card.isKnown); // Array of known verbs
-  const unknownVerbs = cards.slice(0, currentCardIndex).filter((card) => !card.isKnown); // Array of unknown verbs
+  const knownVerbs = cards.slice(0, currentCardIndex).filter((card) => card.isKnown); 
+  const unknownVerbs = cards.slice(0, currentCardIndex).filter((card) => !card.isKnown); 
 
 
   const renderListItem = ({ item }) => {
