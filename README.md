@@ -31,19 +31,9 @@ git clone https://github.com/MaximeL8/IrregularVerbsProject.git
 
 cd IrregularVerbsProject
 
-3. Run the project by opening `index.html` in your preferred web browser.
+3. Run the project by opening it using `expo go` on smartphone and running `npm start --tunnel` on your terminal (Node JS is needed).
 
 4. Start practicing and improving your knowledge of irregular verbs!
-
-## Contributing
-
-If you would like to contribute to this project, feel free to fork the repository and submit a pull request with your changes. We welcome any improvements, bug fixes, or new features that can enhance the project.
-
-Please follow our [Contribution Guidelines](CONTRIBUTING.md) for more information.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute this project in accordance with the terms of the license.
 
 ---
 
