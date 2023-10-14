@@ -6,8 +6,6 @@ This is the Irregular Verbs Project repository, a project aimed at helping learn
 - [Introduction](#introduction)
 - [Features](#features)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
